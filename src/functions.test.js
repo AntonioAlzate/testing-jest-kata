@@ -4,13 +4,16 @@ beforeAll(() => {
     global.Date.now = jest.fn(() => new Date('2021-12-07T10:20:30Z').getTime()) 
 });
 
-test('Validation a event title and content basic', () => {
-    const weekday = "mon";
-    const week = 1;
-    const openHour = 8;
-    const closeHour =14;
+const data = {
+    weekday: "mon",
+    week: 1,
+    openHour: 8,
+    closeHour:14
+}
 
-    const result = createEvent(weekday, week, openHour, closeHour);
+test('Validation a event title and content basic', () => {
+    
+    const result = createEvent(data.weekday, data.week, data.openHour, data.closeHour);
 
     expect(result.title).toBe("[SOFKA U] Meeting Room");
     expect(result.description).toBe("Mentoring and Practice");
