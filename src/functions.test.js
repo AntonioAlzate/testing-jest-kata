@@ -56,7 +56,25 @@ test('Validation date', () => {
 
 
 test('Validation illegal arguments', () => {
-    //TODO: hacer las verificaciones
+    // Para Argumento ilegal en el horario de entrada. --> (closeHour - openHour) < 0)
+    const errorHorario = () => {
+        createEvent(dat.weekday, data.week, 24,10);
+    }
+
+    // Para Argumento ilegal para la semana, debe ser un valor positivo. --> (week < 0)
+    const ErrorSemana = () => {
+        createEvent(data.weekday, -10, data.openHour, data.closeHour);
+    }
+
+    // Para Argumento ilegal el dia de la semana, valores posibles; 'mon', 'tue', 'wed', 'thu', 'fri', 'sat' y 'sun'.
+    const ErrorDiaSemana = () => {
+        createEvent('m', data.week, data.openHour, data.closeHour);
+    }
+
+    // Comprobaciones
+    expect(errorHorario).toThrow(Error);
+    expect(ErrorSemana).toThrow(Error);
+    expect(ErrorDiaSemana).toThrow(Error);
 });
 
 
