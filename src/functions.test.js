@@ -4,11 +4,25 @@ beforeAll(() => {
     global.Date.now = jest.fn(() => new Date('2021-12-07T10:20:30Z').getTime()) 
 });
 
+// Datos y métodos necesarios para pruebas 
 const data = {
     weekday: "mon",
     week: 1,
     openHour: 8,
     closeHour:14
+}
+
+const NUM_DAY = { 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6, 'sun': 7 };
+
+function addDays(days) {
+    return new Date(new Date().setDate(new Date().getDate() + days));
+}
+
+function getDateCalendar(numDay, currentDay) {
+    if (numDay >= currentDay && parseInt(closeHour) >= hour) {//posterior a dia de la semana
+        return addDays((numDay - currentDay) + 7 * (data.week - 1));
+    }
+    return addDays((numDay - currentDay) + 7 * (data.week - 1));
 }
 
 test('Validation a event title and content basic', () => {
@@ -21,7 +35,12 @@ test('Validation a event title and content basic', () => {
 });
 
 test('Validation start date', () => {
-    //TODO: hacer las verificaciones
+
+    const startDate = getDateCalendar(NUM_DAY[data.weekday], new Date().getDay());
+
+    const result = createEvent(data.weekday, data.week, data.openHour, data.closeHour);
+
+    expect(result.start).toEqual(startDate);
 });
 
 test('Validation date', () => {
