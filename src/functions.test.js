@@ -44,7 +44,14 @@ test('Validation start date', () => {
 });
 
 test('Validation date', () => {
-   //TODO: hacer las verificaciones
+
+    const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    const startDate = getDateCalendar(NUM_DAY[data.weekday], new Date().getDay());
+    
+    const date =  new Date(startDate).toLocaleDateString('es-ES', options);
+    const result = createEvent(data.weekday, data.week, data.openHour, data.closeHour);
+
+    expect(result.date).toEqual(date);
 });
 
 
